@@ -23,7 +23,6 @@ import Exceptions.CantRegisterVideoException;
 import Exceptions.NameAlreadyTakenException;
 import Exceptions.UserDoesntExistException;
 import ffmpeg_jni.VideoDash;
-import ffmpeg_jni.VideoThumbnail;
 
 /**
  * Servlet implementation class MPDServer
