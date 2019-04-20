@@ -61,13 +61,13 @@ public class MPDServer extends HttpServlet {
 		String URI=request.getRequestURI();
 		response.setStatus(HttpServletResponse.SC_NOT_FOUND              );
 		ServletOutputStream os =response.getOutputStream();
-		if(URI.equals("/ServidorMpegDashJorge/MPDServer/confirmMail")) {
+		if(URI.equals("/ServidorMpegDashJorge-0.0.1-SNAPSHOT/MPDServer/confirmMail")) {
 			doConfirmEmail(request,response);
-		}else if (URI.equals("/ServidorMpegDashJorge/MPDServer/delete")) {
+		}else if (URI.equals("/ServidorMpegDashJorge-0.0.1-SNAPSHOT/MPDServer/delete")) {
 			doDelete(request,response);
 		}else{			
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-			os.println("El recurso "+ URI + " no está disponible para ti");
+			os.println("El recurso "+ URI + " no está disponible para ti ");
 			return;
 		}
 	}
@@ -82,16 +82,16 @@ public class MPDServer extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		String URI=request.getRequestURI();
 		System.out.println(URI);
-		if(URI.equals("/ServidorMpegDashJorge/MPDServer/upload")) {
+		if(URI.equals("/ServidorMpegDashJorge-0.0.1-SNAPSHOT/MPDServer/upload")) {
 			doUpload(request,response);
 		}
-		else if(URI.equals("/ServidorMpegDashJorge/MPDServer/waitupload")) {
+		else if(URI.equals("/ServidorMpegDashJorge-0.0.1-SNAPSHOT/MPDServer/waitupload")) {
 			doWaitUpload(request,response);
-		}else if(URI.equals("/ServidorMpegDashJorge/MPDServer/register")) {
+		}else if(URI.equals("/ServidorMpegDashJorge-0.0.1-SNAPSHOT/MPDServer/register")) {
 			doRegister(request,response);
-		}else if(URI.equals("/ServidorMpegDashJorge/MPDServer/login")) {
+		}else if(URI.equals("/ServidorMpegDashJorge-0.0.1-SNAPSHOT/MPDServer/login")) {
 			doLogin(request,response);
-		}else if(URI.equals("/ServidorMpegDashJorge/MPDServer/changepass")) {
+		}else if(URI.equals("/ServidorMpegDashJorge-0.0.1-SNAPSHOT/MPDServer/changepass")) {
 		doChangePass(request,response);
 		}else{
 			ServletOutputStream os =response.getOutputStream();
@@ -141,17 +141,17 @@ public class MPDServer extends HttpServlet {
 		try {
 			modelo.registrarVideo(dirName, username);
 		} catch (AlreadyHasThreeVideosException e2) {
-			response.sendRedirect("/ServidorMpegDashJorge/Error.jsp?message=Ya tienes tres videos subidos, borra uno de ellos para subir más");
+			response.sendRedirect("/ServidorMpegDashJorge-0.0.1-SNAPSHOT/Error.jsp?message=Ya tienes tres videos subidos, borra uno de ellos para subir más");
 			return;
 		} catch (CantRegisterVideoException e) {
-			response.sendRedirect("/ServidorMpegDashJorge/Error.jsp?message=Error: No se ha podido regsitrar el video en la base de datos");
+			response.sendRedirect("/ServidorMpegDashJorge-0.0.1-SNAPSHOT/Error.jsp?message=Error: No se ha podido regsitrar el video en la base de datos");
 			return;
 		}
 		 //PROCESAR EL VIDEO			
 		//THUMBNAIL (FFMPEG_JNI)
 		int resp=VideoDash.videoDash(fileWrite); //THREAD A PARTE???????????????????????????
 		if(resp<0) {
-			response.sendRedirect("/ServidorMpegDashJorge/Error.jsp?message=No se ha podido convertir el video");
+			response.sendRedirect("/ServidorMpegDashJorge-0.0.1-SNAPSHOT/Error.jsp?message=No se ha podido convertir el video");
 			return;
 		}
 		File file = new File(fileWrite); 
@@ -199,10 +199,10 @@ public class MPDServer extends HttpServlet {
 				try {
 					modelo.registrarVideoCargado(dirName, username);
 				} catch (CantRegisterVideoException e) {
-					response.sendRedirect("/ServidorMpegDashJorge/Error.jsp?message=Error: no se ha podido marcar el video como subido a la BD");
+					response.sendRedirect("/ServidorMpegDashJorge-0.0.1-SNAPSHOT/Error.jsp?message=Error: no se ha podido marcar el video como subido a la BD");
 					break;
 				}
-				response.sendRedirect("/ServidorMpegDashJorge/FileUploaded.jsp?originalFileName="+fileName+"&streamFileName="+username+File.separator+dirName+"stream.mpd");
+				response.sendRedirect("/ServidorMpegDashJorge-0.0.1-SNAPSHOT/FileUploaded.jsp?originalFileName="+fileName+"&streamFileName="+username+File.separator+dirName+"stream.mpd");
 				break;
 			case 2:
 				try {
@@ -210,7 +210,7 @@ public class MPDServer extends HttpServlet {
 				} catch (CannotDeleteVideoException e) {
 					break;
 				}
-				response.sendRedirect("/ServidorMpegDashJorge/Error.jsp?message=Ya existe un video con ese nombre, cambie el nombre de su video por favor");
+				response.sendRedirect("/ServidorMpegDashJorge-0.0.1-SNAPSHOT/Error.jsp?message=Ya existe un video con ese nombre, cambie el nombre de su video por favor");
 				break;
 			default:
 				try {
@@ -218,7 +218,7 @@ public class MPDServer extends HttpServlet {
 				} catch (CannotDeleteVideoException e) {
 					break;
 				}
-				response.sendRedirect("/ServidorMpegDashJorge/Error.jsp?message=Se ha proucido un error al convertir el archivo, comprueba que sea un fichero de video de formato adecuado");					
+				response.sendRedirect("/ServidorMpegDashJorge-0.0.1-SNAPSHOT/Error.jsp?message=Se ha proucido un error al convertir el archivo, comprueba que sea un fichero de video de formato adecuado");					
 			}
 		} catch (IOException e) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -236,11 +236,11 @@ public class MPDServer extends HttpServlet {
 		session.setAttribute("waitingMailConfirmation",true);
 		try{
 			modelo.nuevoUsuario(userName, userPass,emailAddr);
-			response.sendRedirect("/ServidorMpegDashJorge/validateMail.jsp");
+			response.sendRedirect("/ServidorMpegDashJorge-0.0.1-SNAPSHOT/validateMail.jsp");
 		} catch (CantCreateUserDirException | CantCreateUserException e) {
-			response.sendRedirect("/ServidorMpegDashJorge/Error.jsp?message=Error; No se ha podido crear el usuario");
+			response.sendRedirect("/ServidorMpegDashJorge-0.0.1-SNAPSHOT/Error.jsp?message=Error; No se ha podido crear el usuario");
 		}catch (NameAlreadyTakenException e) {
-			response.sendRedirect("/ServidorMpegDashJorge/Error.jsp?message=Ya existe un usuario con ese nombre, elija otro nombre de usuario por favor");
+			response.sendRedirect("/ServidorMpegDashJorge-0.0.1-SNAPSHOT/Error.jsp?message=Ya existe un usuario con ese nombre, elija otro nombre de usuario por favor");
 		}
 		
 		
@@ -252,9 +252,9 @@ public class MPDServer extends HttpServlet {
 		if (modelo.autenticarUsuario(userName, userPass)) {
 			HttpSession session=request.getSession();  
 	        session.setAttribute("userName",userName);  
-			response.sendRedirect("/ServidorMpegDashJorge/upload.jsp");
+			response.sendRedirect("/ServidorMpegDashJorge-0.0.1-SNAPSHOT/upload.jsp");
 		}else {
-			response.sendRedirect("/ServidorMpegDashJorge/Error.jsp?message=No se ha podido iniciar sesión, el nombre de usuario o contraseña son incorrectos");
+			response.sendRedirect("/ServidorMpegDashJorge-0.0.1-SNAPSHOT/Error.jsp?message=No se ha podido iniciar sesión, el nombre de usuario o contraseña son incorrectos");
 		}
 	}
 	
@@ -265,9 +265,9 @@ public class MPDServer extends HttpServlet {
 			HttpSession session=request.getSession();  
 	        session.setAttribute("userName",userName);
 	        session.removeAttribute("WaitingMailConfirmation");
-			response.sendRedirect("/ServidorMpegDashJorge/upload.jsp");
+			response.sendRedirect("/ServidorMpegDashJorge-0.0.1-SNAPSHOT/upload.jsp");
 		}else {
-			response.sendRedirect("/ServidorMpegDashJorge/Error.jsp?message=No se ha podido iniciar sesión, el nombre de usuario o contraseña son incorrectos");
+			response.sendRedirect("/ServidorMpegDashJorge-0.0.1-SNAPSHOT/Error.jsp?message=No se ha podido iniciar sesión, el nombre de usuario o contraseña son incorrectos");
 		}
 	}
 	
@@ -278,11 +278,11 @@ public class MPDServer extends HttpServlet {
 			try {
 				modelo.borrarVideo((String)request.getParameter("fileName"),userName );
 			} catch (CannotDeleteVideoException e) {
-				response.sendRedirect("/ServidorMpegDashJorge/Error.jsp?message=Error: No se ha podido borrar el video");
+				response.sendRedirect("/ServidorMpegDashJorge-0.0.1-SNAPSHOT/Error.jsp?message=Error: No se ha podido borrar el video");
 			}
-			response.sendRedirect("/ServidorMpegDashJorge/myvideos.jsp");
+			response.sendRedirect("/ServidorMpegDashJorge-0.0.1-SNAPSHOT/myvideos.jsp");
 		}else {
-			response.sendRedirect("/ServidorMpegDashJorge/Error.jsp?message=No puedes borrar un video de otro  usuario pillín!!!!!");
+			response.sendRedirect("/ServidorMpegDashJorge-0.0.1-SNAPSHOT/Error.jsp?message=No puedes borrar un video de otro  usuario pillín!!!!!");
 		}
 	}
 	
@@ -295,11 +295,11 @@ public class MPDServer extends HttpServlet {
 			try {
 				modelo.editarUsuario(userName,newPass);
 			} catch (UserDoesntExistException e) {
-				response.sendRedirect("/ServidorMpegDashJorge/Error.jsp?message=El usuario no existe");
+				response.sendRedirect("/ServidorMpegDashJorge-0.0.1-SNAPSHOT/Error.jsp?message=El usuario no existe");
 			}
-			response.sendRedirect("/ServidorMpegDashJorge/upload.jsp");
+			response.sendRedirect("/ServidorMpegDashJorge-0.0.1-SNAPSHOT/upload.jsp");
 		}else{
-			response.sendRedirect("/ServidorMpegDashJorge/Error.jsp?message=La contraseña no es correcta");
+			response.sendRedirect("/ServidorMpegDashJorge-0.0.1-SNAPSHOT/Error.jsp?message=La contraseña no es correcta");
 		}
 	}
 	@Override

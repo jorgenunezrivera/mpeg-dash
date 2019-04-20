@@ -372,7 +372,7 @@ public class Modelo {
 	          message.setFrom(new InternetAddress(from));
 	          message.addRecipient(Message.RecipientType.TO, new InternetAddress(mailAddr));
 	          message.setSubject("Correo de confirmación");
-	          message.setContent("<h1>Confirma tu usuario en ServidorMpegDASH</h1><p>Haz click en el enlace para confirmar tu correo</p><a href='"+serverHost+"/ServidorMpegDashJorge/MPDServer/confirmMail?userName="+nombre+"&token="+token+"'>Confirmar correo </a>", "text/html" );
+	          message.setContent("<h1>Confirma tu usuario en ServidorMpegDASH</h1><p>Haz click en el enlace para confirmar tu correo</p><a href='"+serverHost+"/ServidorMpegDashJorge-0.0.1-SNAPSHOT/MPDServer/confirmMail?userName="+nombre+"&token="+token+"'>Confirmar correo </a>", "text/html" );
 	         SMTPTransport t=(SMTPTransport)session.getTransport("smtp");
 	         try {
 	        	 t.connect(host,from, password);
