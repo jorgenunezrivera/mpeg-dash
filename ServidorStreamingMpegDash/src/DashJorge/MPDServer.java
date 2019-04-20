@@ -96,7 +96,7 @@ public class MPDServer extends HttpServlet {
 		}else{
 			ServletOutputStream os =response.getOutputStream();
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-			os.println("El recurso "+ URI + " no está disponible para ti");
+			os.println("El recurso "+ URI + " no está disponible para ti (POST)?");
 			return;
 		}
 	}
