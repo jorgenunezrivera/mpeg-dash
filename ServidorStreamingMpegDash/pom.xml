@@ -52,6 +52,7 @@
       </resource>
     </resources>
     <plugins>
+    
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.0</version>
@@ -61,6 +62,7 @@
           <target>1.8</target>
         </configuration>
       </plugin>
+      
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
         <version>3.2.1</version>
@@ -68,6 +70,7 @@
           <warSourceDirectory>WebContent</warSourceDirectory>
         </configuration>
       </plugin>
+      
       <plugin>
       <groupId>org.codehaus.mojo</groupId>
         <artifactId>sql-maven-plugin</artifactId>
@@ -87,21 +90,19 @@
           <driver>org.mariadb.jdbc</driver>
           <url>mariadb.mpeg-dash.svc.cluster.local:3306</url>
           <username>dash</username>
-          <password>dashPass0</password>
-          
+          <password>dashPass0</password>          
         </configuration>
 
         <executions>
           <execution>
-            <phase></phase>
+            <phase>process-test-resources</phase>
             <goals>
               <goal>execute</goal>
             </goals>
             <!-- specific configuration for this execution -->
             <configuration>
               <!-- specify your SQL commands, can be all of the following configurations -->
-              <fileset></fileset>
-              <sqlCommand></sqlCommand>
+              <autocommit>true</autocommit>             
               <srcFiles>
                 <srcFile>create.sql</srcFile>
               </srcFiles>
