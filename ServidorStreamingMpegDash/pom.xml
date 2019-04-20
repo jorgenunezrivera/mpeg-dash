@@ -95,7 +95,7 @@
 
         <executions>
           <execution>
-         	 <id>create-db</id>
+         	 <id>drop-create-db</id>
             <phase>process-test-resources</phase>
             <goals>
               <goal>execute</goal>

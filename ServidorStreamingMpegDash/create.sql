@@ -1,3 +1,6 @@
+DROP TABLE video;
+DROP TABLE user;
+
 CREATE TABLE user 
     (username VARCHAR(30) NOT NULL,
     password CHAR(65) NOT NULL,
