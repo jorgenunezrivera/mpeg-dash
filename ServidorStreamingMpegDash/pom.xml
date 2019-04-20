@@ -88,7 +88,7 @@
         <!-- common configuration shared by all executions -->
         <configuration>
           <driver>org.mariadb.jdbc.Driver</driver>
-          <url>jdbc:mariadb:mariadb.mpeg-dash.svc.cluster.local:3306/dash</url>
+          <url>jdbc:mariadb://mariadb.mpeg-dash.svc.cluster.local:3306/dash</url>
           <username>dash</username>
           <password>dashPass0</password>          
         </configuration>
