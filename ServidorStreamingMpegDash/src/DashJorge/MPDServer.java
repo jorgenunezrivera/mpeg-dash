@@ -20,6 +20,7 @@ import Exceptions.CannotDeleteVideoException;
 import Exceptions.CantCreateUserDirException;
 import Exceptions.CantCreateUserException;
 import Exceptions.CantRegisterVideoException;
+import Exceptions.CantSendConfirmMailException;
 import Exceptions.NameAlreadyTakenException;
 import Exceptions.UserDoesntExistException;
 import ffmpeg_jni.VideoDash;
@@ -241,6 +242,9 @@ public class MPDServer extends HttpServlet {
 			response.sendRedirect("/ServidorMpegDashJorge-0.0.1-SNAPSHOT/Error.jsp?message=Error; No se ha podido crear el usuario");
 		}catch (NameAlreadyTakenException e) {
 			response.sendRedirect("/ServidorMpegDashJorge-0.0.1-SNAPSHOT/Error.jsp?message=Ya existe un usuario con ese nombre, elija otro nombre de usuario por favor");
+		} catch (CantSendConfirmMailException e) {
+			response.sendRedirect("/ServidorMpegDashJorge-0.0.1-SNAPSHOT/Error.jsp?message=No se ha podido enviar el email de confirmación : " +e.text);			
+			e.printStackTrace();
 		}
 		
 		

@@ -14,6 +14,7 @@ import Exceptions.CannotDeleteVideoException;
 import Exceptions.CantCreateUserDirException;
 import Exceptions.CantCreateUserException;
 import Exceptions.CantRegisterVideoException;
+import Exceptions.CantSendConfirmMailException;
 import Exceptions.NameAlreadyTakenException;
 import Exceptions.UserDoesntExistException;
 import Exceptions.VideoDoesntExistException;
@@ -81,7 +82,7 @@ public class Modelo {
 	////////////////////////////////////////////////////////////////// USUARIO /////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//NUEVO USUARIO
-	public void nuevoUsuario(String nombre,String pass,String mailAddr) throws NameAlreadyTakenException, CantCreateUserDirException, CantCreateUserException{
+	public void nuevoUsuario(String nombre,String pass,String mailAddr) throws NameAlreadyTakenException, CantCreateUserDirException, CantCreateUserException, CantSendConfirmMailException{
 		try{ //COMPRUEBA SI YA EXISTE UNO CON EL MISMO NOMBRE
 			PreparedStatement checkStatement = con.prepareStatement("SELECT username FROM user WHERE username = ?");
 			checkStatement.setString(1, nombre);
@@ -355,7 +356,8 @@ public class Modelo {
 	//FUNCIONES AUXILIARES  O DE APOYO
 	
 	//SEND CONFIRMATION MAIL (GENERA UN TOKEN Y LO ENVIA POR CORREO 
-	protected void sendConfirmationMail(String nombre, String mailAddr) {
+	//REVISAR; EXEPCIONES
+	protected void sendConfirmationMail(String nombre, String mailAddr) throws CantSendConfirmMailException  {
 		  String from = serverProperties.getProperty("mailFrom");//"jorge.nunez.rivera@udc.es";
 	      String host = serverProperties.getProperty("mailHost");//"smtp.office365.com";
 	      String password =serverProperties.getProperty("mailPass");//"DaisAsko2018";
@@ -382,18 +384,19 @@ public class Modelo {
 	         } catch (SendFailedException e) {
 	        	 e.printStackTrace();
 	        	 System.err.println(e.getMessage());
-	         }catch (MessagingException mex) {
-	        	 mex.printStackTrace();
-	        	 System.err.println(mex.getMessage());
+	        	 throw new CantSendConfirmMailException("Send failed "+e.getMessage());
+	         }catch (MessagingException e) {
+	        	 e.printStackTrace();
+	        	 System.err.println(e.getMessage());
+	        	 throw new CantSendConfirmMailException("Send failed "+e.getMessage());
 	         }
 	         finally {
 	        	 t.close();
 	         }
 	         
 	         
-	      } catch (MessagingException mex) {
-	         mex.printStackTrace();
-	         System.err.println(mex.getMessage());
+	      } catch (MessagingException e) {
+	         throw new CantSendConfirmMailException("Send failed "+e.getMessage());
 	      }
 	}
 	
