@@ -74,7 +74,7 @@
       <plugin>
       <groupId>org.codehaus.mojo</groupId>
         <artifactId>sql-maven-plugin</artifactId>
-        <version>3.0.0-SNAPSHOT</version>
+        <version>1.5</version>
 
         <dependencies>
           <!-- specify the dependent JDBC driver here -->
@@ -88,13 +88,14 @@
         <!-- common configuration shared by all executions -->
         <configuration>
           <driver>org.mariadb.jdbc</driver>
-          <url>mariadb.mpeg-dash.svc.cluster.local:3306</url>
+          <url>jdbc:mariadb:mariadb.mpeg-dash.svc.cluster.local:3306/dash</url>
           <username>dash</username>
           <password>dashPass0</password>          
         </configuration>
 
         <executions>
           <execution>
+         	 <id>create-db</id>
             <phase>process-test-resources</phase>
             <goals>
               <goal>execute</goal>
