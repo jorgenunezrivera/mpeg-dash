@@ -14,7 +14,7 @@
       <url-pattern>/MPDServer/*</url-pattern>      
     </servlet-mapping>
     <!-- Cors filter -->
-    <!--  comentado para wildfly
+    <!--  comentado para wildfly ( quiza deberia añadrilo a maven???
 <filter>
     <filter-name>CorsFilter</filter-name>
     <filter-class>org.apache.catalina.filters.CorsFilter</filter-class>

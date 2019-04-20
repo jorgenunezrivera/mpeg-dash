@@ -260,7 +260,7 @@ public class Modelo {
 			}
 			if(fileUploaded) {
 				File file = new File(serverProperties.getProperty("usersdir")+nombrePropietario+File.separator +nombreArchivo);//Usar separador universal?
-				recursiveDelete(file);
+				recursiveDelete(file); 
 			}
 		}catch (SQLException e) {
 			System.err.println(e.getMessage());
