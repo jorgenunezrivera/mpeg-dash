@@ -91,6 +91,7 @@ public class Modelo {
 			}
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
+			throw new CantCreateUserException(nombre);			
 		}
 		try {//SI NO, LO INSERTA
 			PreparedStatement statement = con.prepareStatement("INSERT INTO user VALUES (?,?,?,FALSE)");
@@ -111,6 +112,7 @@ public class Modelo {
 			sendConfirmationMail(nombre,mailAddr);
 		}catch (SQLException e) {
 			System.err.println(e.getMessage());
+			throw new CantCreateUserException(nombre);			
 		}					
 	}
 	
