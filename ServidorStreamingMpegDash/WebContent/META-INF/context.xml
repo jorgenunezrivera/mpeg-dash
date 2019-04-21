@@ -6,7 +6,7 @@
 			username="dash"
 			password="dashPass0MIERDA"
 			driverClassName="org.mariadb.jdbc.Driver"
-			url="jdbc:mariadb://mariadb.mpeg-dash.svc.cluster.local:3306/dash"
+			url="jdbc:mariadb://mariadb.mpeg-dash.svc.cluster.local.MIERDA:3306/dash"
 			maxTotal="15"
 			maxIdle="3"/>
 </Context>
