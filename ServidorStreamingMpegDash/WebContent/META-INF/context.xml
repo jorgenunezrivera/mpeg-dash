@@ -4,9 +4,9 @@
 			auth="Container"
 			type="javax.sql.DataSource"
 			username="dash"
-			password="dashPass0DA"
+			password="dashPass0CACA"
 			driverClassName="org.mariadb.jdbc.Driver"
-			url="jdbc:mariadb://172.30.183.84:3306/dash"
+			url="jdbc:mariadb://mariadb.mpeg-dash.svc.cluster.local:3306/dash"
 			maxTotal="15"
 			maxIdle="3"/>
 </Context>
