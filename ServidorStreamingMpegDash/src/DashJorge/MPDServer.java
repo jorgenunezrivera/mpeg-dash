@@ -245,7 +245,7 @@ public class MPDServer extends HttpServlet {
 			modelo.nuevoUsuario(userName, userPass,emailAddr);
 			response.sendRedirect("/ServidorMpegDashJorge-0.0.1-SNAPSHOT/validateMail.jsp");
 		} catch ( CantCreateUserException e) {
-			response.sendRedirect("/ServidorMpegDashJorge-0.0.1-SNAPSHOT/Error.jsp?message=Error; No se ha podido crear el usuario");
+			response.sendRedirect("/ServidorMpegDashJorge-0.0.1-SNAPSHOT/Error.jsp?message=Error; No se ha podido crear el usuario: "+e.text);
 		}catch (NameAlreadyTakenException e) {
 			response.sendRedirect("/ServidorMpegDashJorge-0.0.1-SNAPSHOT/Error.jsp?message=Ya existe un usuario con ese nombre, elija otro nombre de usuario por favor");
 		} catch (CantSendConfirmMailException e) {
