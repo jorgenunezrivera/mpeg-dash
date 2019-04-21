@@ -57,6 +57,7 @@ public class Modelo {
 			envCtx = (Context) initCtx.lookup("java:comp/env");
 			DataSource ds = (DataSource)envCtx.lookup("jdbc/mariadb");
 			con=ds.getConnection();
+			System.err.println("Conexion valida?¿:"+con.isValid(10));
 		} catch (NamingException e1) {
 			System.err.println("Imposible conectar a mariadb: nombre de recurso incorrecto");
 			e1.printStackTrace();
