@@ -50,37 +50,36 @@ public class Modelo {
 	Context initCtx; 
 	Context envCtx;
 	
-	private Modelo() {		
-		
-	}
-	
-	public void init() throws CantConnectToDbException {
+	private Modelo() throws CantConnectToDbException {		
 		//CONECTAR A MARIADB
-				try {
-					initCtx = new InitialContext();
-					envCtx = (Context) initCtx.lookup("java:comp/env");
-					DataSource ds = (DataSource)envCtx.lookup("jdbc/mariadb");
-					con=ds.getConnection();
-				} catch (NamingException e1) {
-					System.err.println("Imposible conectar a mariadb: nombre de recurso incorrecto");
-					e1.printStackTrace();
-					throw new CantConnectToDbException("Nombre de recurso incorrecto");
-				} catch (SQLException e) {
-					System.err.println("Imposible conectar a mariadb");
-					e.printStackTrace();
-					throw new CantConnectToDbException("Nombre de recurso incorrecto :"+e.getMessage());
-				}
-				serverProperties=new Properties();
-				InputStream input = Modelo.class.getResourceAsStream("servidor.properties");
-				try {
-					serverProperties.load(input);
-				} catch (IOException e) {
-					System.err.println("Se ha producido un error leyendo el fichero de configuracion ");
-				}
-				clean = new TimedClean(this);
+		try {
+			initCtx = new InitialContext();
+			envCtx = (Context) initCtx.lookup("java:comp/env");
+			DataSource ds = (DataSource)envCtx.lookup("jdbc/mariadb");
+			con=ds.getConnection();
+		} catch (NamingException e1) {
+			System.err.println("Imposible conectar a mariadb: nombre de recurso incorrecto");
+			e1.printStackTrace();
+			throw new CantConnectToDbException("Nombre de recurso incorrecto");
+		} catch (SQLException e) {
+			System.err.println("Imposible conectar a mariadb");
+			e.printStackTrace();
+			throw new CantConnectToDbException("Nombre de recurso incorrecto :"+e.getMessage());
+		}
+		serverProperties=new Properties();
+		InputStream input = Modelo.class.getResourceAsStream("servidor.properties");
+		try {
+			serverProperties.load(input);
+		} catch (IOException e) {
+			System.err.println("Se ha producido un error leyendo el fichero de configuracion ");
+		}
+		System.err.println("MODELO INICIALIZADO CON EXITO");
+		clean = new TimedClean(this);
 	}
 	
-	public static Modelo getInstance() {
+
+	
+	public static Modelo getInstance() throws CantConnectToDbException {
 			if(modelo_instance==null) {
 				modelo_instance= new Modelo();
 			}

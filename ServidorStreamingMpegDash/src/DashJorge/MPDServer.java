@@ -40,9 +40,9 @@ public class MPDServer extends HttpServlet {
      * Default constructor. 
      */
     public MPDServer() {
-        modelo=Modelo.getInstance();  
+          
         try {
-			modelo.init();
+        	modelo=Modelo.getInstance();	
 		} catch (CantConnectToDbException e1) {
 			System.err.println(e1.text);
 		}
