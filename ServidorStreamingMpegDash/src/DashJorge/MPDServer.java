@@ -238,13 +238,15 @@ public class MPDServer extends HttpServlet {
 		try{
 			modelo.nuevoUsuario(userName, userPass,emailAddr);
 			response.sendRedirect("/ServidorMpegDashJorge-0.0.1-SNAPSHOT/validateMail.jsp");
-		} catch (CantCreateUserDirException | CantCreateUserException e) {
+		} catch ( CantCreateUserException e) {
 			response.sendRedirect("/ServidorMpegDashJorge-0.0.1-SNAPSHOT/Error.jsp?message=Error; No se ha podido crear el usuario");
 		}catch (NameAlreadyTakenException e) {
 			response.sendRedirect("/ServidorMpegDashJorge-0.0.1-SNAPSHOT/Error.jsp?message=Ya existe un usuario con ese nombre, elija otro nombre de usuario por favor");
 		} catch (CantSendConfirmMailException e) {
-			response.sendRedirect("/ServidorMpegDashJorge-0.0.1-SNAPSHOT/Error.jsp?message=No se ha podido enviar el email de confirmación : " +e.text);			
-			e.printStackTrace();
+			response.sendRedirect("/ServidorMpegDashJorge-0.0.1-SNAPSHOT/Error.jsp?message=No se ha podido enviar el email de confirmación : " +e.text);		
+			
+		} catch (CantCreateUserDirException e) {
+			response.sendRedirect("/ServidorMpegDashJorge-0.0.1-SNAPSHOT/Error.jsp?message=Error; No se ha podido crear el directorio del usuario");			
 		}
 		
 		

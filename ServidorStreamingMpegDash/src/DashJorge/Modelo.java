@@ -46,6 +46,7 @@ public class Modelo {
 	private Connection con;
 	private Properties serverProperties;
 	TimedClean clean;
+	
 	private Modelo() {
 		Context initCtx; 
 		Context envCtx;
