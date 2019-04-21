@@ -99,7 +99,7 @@ public class Modelo {
 			}
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
-			throw new CantCreateUserException(nombre);			
+			throw new CantCreateUserException(nombre,"Error SQL buscando el usuario: "+e.getMessage());			
 		}
 		try {//SI NO, LO INSERTA
 			PreparedStatement statement = con.prepareStatement("INSERT INTO user VALUES (?,?,?,FALSE)");
@@ -114,13 +114,13 @@ public class Modelo {
 			}
 			int updated=statement.getUpdateCount();
 			if(updated!=1){
-				throw new CantCreateUserException(nombre);
+				throw new CantCreateUserException(nombre,"No se ha actualizado ninguna fila!!!");
 				}
 			//ENVIAR EMAIL DE CONFIRMACION Y GENERAR TOKEN
 			sendConfirmationMail(nombre,mailAddr);
 		}catch (SQLException e) {
 			System.err.println(e.getMessage());
-			throw new CantCreateUserException(nombre);			
+			throw new CantCreateUserException(nombre,"Error SQL creando el usuario: "+e.getMessage());			
 		}					
 	}
 	
