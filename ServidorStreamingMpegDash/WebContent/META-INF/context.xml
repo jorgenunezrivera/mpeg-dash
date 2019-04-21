@@ -6,7 +6,7 @@
 			username="dash"
 			password="dashPass0DA"
 			driverClassName="org.mariadb.jdbc.Driver"
-			url="jdbc:mariadb://mariadb-mpeg-dash.1d35.starter-us-east-1.openshiftapps.com:3306/dash"
+			url="jdbc:mariadb://10.130.27.8:3306/dash"
 			maxTotal="15"
 			maxIdle="3"/>
 </Context>
