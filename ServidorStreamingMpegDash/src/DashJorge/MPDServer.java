@@ -17,6 +17,7 @@ import javax.servlet.http.Part;
 
 import Exceptions.AlreadyHasThreeVideosException;
 import Exceptions.CannotDeleteVideoException;
+import Exceptions.CantConnectToDbException;
 import Exceptions.CantCreateUserDirException;
 import Exceptions.CantCreateUserException;
 import Exceptions.CantRegisterVideoException;
@@ -39,7 +40,12 @@ public class MPDServer extends HttpServlet {
      * Default constructor. 
      */
     public MPDServer() {
-        modelo=Modelo.getInstance();        
+        modelo=Modelo.getInstance();  
+        try {
+			modelo.init();
+		} catch (CantConnectToDbException e1) {
+			System.err.println(e1.text);
+		}
        serverProperties=new Properties();
     	InputStream input = Modelo.class.getResourceAsStream("servidor.properties");
     	try {

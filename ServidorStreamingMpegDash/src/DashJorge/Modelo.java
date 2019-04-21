@@ -11,6 +11,7 @@ import com.sun.mail.smtp.SMTPTransport;
 
 import Exceptions.AlreadyHasThreeVideosException;
 import Exceptions.CannotDeleteVideoException;
+import Exceptions.CantConnectToDbException;
 import Exceptions.CantCreateUserDirException;
 import Exceptions.CantCreateUserException;
 import Exceptions.CantRegisterVideoException;
@@ -46,31 +47,37 @@ public class Modelo {
 	private Connection con;
 	private Properties serverProperties;
 	TimedClean clean;
+	Context initCtx; 
+	Context envCtx;
 	
-	private Modelo() {
-		Context initCtx; 
-		Context envCtx;
+	private Modelo() {		
+		
+	}
+	
+	public void init() throws CantConnectToDbException {
 		//CONECTAR A MARIADB
-		try {
-			initCtx = new InitialContext();
-			envCtx = (Context) initCtx.lookup("java:comp/env");
-			DataSource ds = (DataSource)envCtx.lookup("jdbc/mariadb");
-			con=ds.getConnection();
-		} catch (NamingException e1) {
-			System.err.println("Imposible conectar a mariadb: nombre de recurso incorrecto");
-			e1.printStackTrace();
-		} catch (SQLException e) {
-			System.err.println("Imposible conectar a mariadb");
-			e.printStackTrace();
-		}
-		serverProperties=new Properties();
-		InputStream input = Modelo.class.getResourceAsStream("servidor.properties");
-		try {
-			serverProperties.load(input);
-		} catch (IOException e) {
-			System.err.println("Se ha producido un error leyendo el fichero de configuracion ");
-		}
-		clean = new TimedClean(this);
+				try {
+					initCtx = new InitialContext();
+					envCtx = (Context) initCtx.lookup("java:comp/env");
+					DataSource ds = (DataSource)envCtx.lookup("jdbc/mariadb");
+					con=ds.getConnection();
+				} catch (NamingException e1) {
+					System.err.println("Imposible conectar a mariadb: nombre de recurso incorrecto");
+					e1.printStackTrace();
+					throw new CantConnectToDbException("Nombre de recurso incorrecto");
+				} catch (SQLException e) {
+					System.err.println("Imposible conectar a mariadb");
+					e.printStackTrace();
+					throw new CantConnectToDbException("Nombre de recurso incorrecto :"+e.getMessage());
+				}
+				serverProperties=new Properties();
+				InputStream input = Modelo.class.getResourceAsStream("servidor.properties");
+				try {
+					serverProperties.load(input);
+				} catch (IOException e) {
+					System.err.println("Se ha producido un error leyendo el fichero de configuracion ");
+				}
+				clean = new TimedClean(this);
 	}
 	
 	public static Modelo getInstance() {
