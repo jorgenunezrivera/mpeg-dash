@@ -1,0 +1,7 @@
+eclipse.preferences.version=1
+org.jboss.tools.openshift.Connection=https\://jorge.nunez.rivera@api.starter-us-east-1.openshift.com
+org.jboss.tools.openshift.DeployProject=ServidorMpegDashJorge
+org.jboss.tools.openshift.PodPath=
+org.jboss.tools.openshift.Route=https\://mpeg-dash-mpeg-dash.1d35.starter-us-east-1.openshiftapps.com/
+org.jboss.tools.openshift.Service=mpeg-dash@mpeg-dash
+org.jboss.tools.openshift.SourcePath=${workspace_loc\:/ServidorMpegDashJorge}

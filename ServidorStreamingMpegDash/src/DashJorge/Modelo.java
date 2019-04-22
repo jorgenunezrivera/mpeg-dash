@@ -54,8 +54,8 @@ public class Modelo {
 		//CONECTAR A MARIADB
 		try {
 			initCtx = new InitialContext();
-			envCtx = (Context) initCtx.lookup("java:comp/env");
-			DataSource ds = (DataSource)envCtx.lookup("jdbc/mariadb");
+			envCtx = (Context) initCtx.lookup("java:jboss");
+			DataSource ds = (DataSource)envCtx.lookup("datasources/mariadb");
 			con=ds.getConnection();
 			System.err.println("Conexion valida?¿:"+con.isValid(10));
 		} catch (NamingException e1) {
